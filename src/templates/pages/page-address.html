@@ -1,0 +1,735 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Sign UP {% endblock title %}
+
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} sign-in-illustration {% endblock body_class %}
+
+{% block content %}
+
+    {#  {% include "includes/navigation.html" %}#}
+
+    <section>
+        <div class="page-header section-height-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder">Sign UP</h4>
+                                <p class="mb-0">Add your credentials and register</p>
+                            </div>
+                            <div class="card-body">
+                                <form action="/register_address" role="form" method="post">
+                                    <label>
+                                        <input type="text" hidden="hidden" class="form-control form-control-lg"
+                                               name="user_id" value="{{ user_id }}">
+                                    </label>
+
+                                    <div>
+                                        <select>
+                                            <option>-- Choose Country --</option>
+                                            <option>Việt Nam</option>
+                                        </select>
+                                        <select id="city" name="city">
+
+                                            <option value="">-- Choose City --</option>
+                                            <option value="ha-noi">Hà Nội</option>
+                                            <option value="ho-chi-minh">Hồ Chí Minh</option>
+                                            <option value="an-giang">An Giang</option>
+                                            <option value="bac-giang">Bắc Giang</option>
+                                            <option value="bac-kan">Bắc Kạn</option>
+                                            <option value="bac-lieu">Bạc Liêu</option>
+                                            <option value="bac-ninh">Bắc Ninh</option>
+                                            <option value="ben-tre">Bến Tre</option>
+                                            <option value="binh-dinh">Bình Định</option>
+                                            <option value="binh-duong">Bình Dương</option>
+                                            <option value="binh-phuoc">Bình Phước</option>
+                                            <option value="binh-thuan">Bình Thuận</option>
+                                            <option value="ca-mau">Cà Mau</option>
+                                            <option value="cao-bang">Cao Bằng</option>
+                                            <option value="da-nang">Đà Nẵng</option>
+                                            <option value="dak-lak">Đắk Lắk</option>
+                                            <option value="dak-nong">Đắk Nông</option>
+                                            <option value="dien-bien">Điện Biên</option>
+                                            <option value="dong-nai">Đồng Nai</option>
+                                            <option value="dong-thap">Đồng Tháp</option>
+                                            <option value="gia-lai">Gia Lai</option>
+                                            <option value="ha-giang">Hà Giang</option>
+                                            <option value="ha-nam">Hà Nam</option>
+                                            <option value="ha-tinh">Hà Tĩnh</option>
+                                            <option value="hai-duong">Hải Dương</option>
+                                            <option value="hai-phong">Hải Phòng</option>
+                                            <option value="hau-giang">Hậu Giang</option>
+                                            <option value="hoa-binh">Hòa Bình</option>
+                                            <option value="hung-yen">Hưng Yên</option>
+                                            <option value="khanh-hoa">Khánh Hòa</option>
+                                            <option value="kien-giang">Kiên Giang</option>
+                                            <option value="kon-tum">Kon Tum</option>
+                                            <option value="lai-chau">Lai Châu</option>
+                                            <option value="lam-dong">Lâm Đồng</option>
+                                            <option value="lang-son">Lạng Sơn</option>
+                                            <option value="lao-cai">Lào Cai</option>
+                                            <option value="long-an">Long An</option>
+                                            <option value="nam-dinh">Nam Định</option>
+                                            <option value="nghe-an">Nghệ An</option>
+                                            <option value="ninh-binh">Ninh Bình</option>
+                                            <option value="ninh-thuan">Ninh Thuận</option>
+                                            <option value="phu-tho">Phú Thọ</option>
+                                            <option value="phu-yen">Phú Yên</option>
+                                            <option value="quang-binh">Quảng Bình</option>
+                                            <option value="quang-nam">Quảng Nam</option>
+                                            <option value="quang-ngai">Quảng Ngãi</option>
+                                            <option value="quangninh">Quảng Ninh</option>
+                                            <option value="quang-tri">Quảng Trị</option>
+                                            <option value="soc-trang">Sóc Trăng</option>
+                                            <option value="son-la">Sơn La</option>
+                                            <option value="tay-ninh">Tây Ninh</option>
+                                            <option value="thai-binh">Thái Bình</option>
+                                            <option value="thai-nguyen">Thái Nguyên</option>
+                                            <option value="thanh-hoa">Thanh Hóa</option>
+                                            <option value="thua-thien-hue">Thừa Thiên Huế</option>
+                                            <option value="tien-giang">Tiền Giang</option>
+                                            <option value="tra-vinh">Trà Vinh</option>
+                                            <option value="tuyen-quang">Tuyên Quang</option>
+                                            <option value="vinh-long">Vĩnh Long</option>
+                                            <option value="vinh-phuc">Vĩnh Phúc</option>
+                                            <option value="yen-bai">Yên Bái</option>
+                                        </select>
+
+                                        <select id="district" name="district">
+                                            <option value="">-- Choose District --</option>
+                                        </select>
+
+                                        <script>
+                                            var citySelect = document.getElementById('city');
+                                            citySelect.onchange = function () {
+                                                var city = this.value;
+                                                var districtSelect = document.getElementById('district');
+                                                districtSelect.innerHTML = '<option value="">-- Choose District --</option>';
+
+                                                if (city === 'ha-noi') {
+                                                    var districts = ['Ba Đình', 'Bắc Từ Liêm', 'Cầu Giấy', 'Đống Đa', 'Hà Đông', 'Hai Bà Trưng', 'Hoàn Kiếm', 'Hoàng Mai', 'Long Biên', 'Nam Từ Liêm', 'Tây Hồ', 'Thanh Xuân', 'Sơn Tây', 'Ba Vì', 'Chương Mỹ', 'Đan Phượng', 'Đông Anh', 'Gia Lâm', 'Hoài Đức', 'Mê Linh', 'Mỹ Đức', 'Phú Xuyên', 'Phúc Thọ', 'Quốc Oai', 'Sóc Sơn', 'Thạch Thất', 'Thanh Oai', 'Thanh Trì', 'Thường Tín', 'Ứng Hòa'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ho-chi-minh') {
+                                                    var districts = ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 4', 'Quận 5', 'Quận 6', 'Quận 7', 'Quận 8', 'Quận 9', 'Quận 10', 'Quận 11', 'Quận 12', 'Bình Tân', 'Bình Thạnh', 'Gò Vấp', 'Phú Nhuận', 'Tân Bình', 'Tân Phú', 'Thủ Đức'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'an-giang') {
+                                                    var districts = ['An Phú', 'Châu Đốc', 'Châu Phú', 'Chợ Mới', 'Phú Tân', 'Thoại Sơn', 'Tịnh Biên', 'Tri Tôn'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'bac-giang') {
+                                                    var districts = ['Bắc Giang', 'Hiệp Hòa', 'Lạng Giang', 'Lục Nam', 'Lục Ngạn', 'Sơn Động', 'Tân Yên', 'Việt Yên', 'Yên Dũng'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'bac-kan') {
+                                                    var districts = ['Bắc Kạn', 'Ba Bể', 'Chợ Đồn', 'Chợ Mới', 'Na Rì', 'Ngân Sơn', 'Pác Nặm', 'Thông Nông', 'Tiên Yên', 'Trạm Tấu'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'bac-lieu') {
+                                                    var districts = ['Thành phố Bạc Liêu', 'Huyện Đông Hải', 'Huyện Hoà Bình', 'Huyện Hồng Dân', 'Huyện Phước Long'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'bac-ninh') {
+                                                    var districts = ['Bắc Ninh', 'Tiên Du', 'Từ Sơn', 'Thuận Thành', 'Yên Phong', 'Gia Bình', 'Lương Tài', 'Quế Võ'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ben-tre') {
+                                                    var districts = ['Thành phố Bến Tre', 'Ba Tri', 'Bình Đại', 'Châu Thành', 'Chợ Lách', 'Giồng Trôm', 'Mỏ Cày Bắc', 'Mỏ Cày Nam', 'Thạnh Phú'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'binh-dinh') {
+                                                    var districts = ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 4', 'Quận 5', 'Quận 6', 'Quận 7', 'Quận 8', 'Quận 9', 'Quận 10', 'Quận 11', 'Quận 12', 'An Lão', 'An Nhơn', 'Hoài Ân', 'Hoài Nhơn', 'Phù Cát', 'Phù Mỹ', 'Quy Nhơn', 'Tây Sơn', 'Tuy Phước', 'Vân Canh', 'Vĩnh Thạnh'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'binh-duong') {
+                                                    var districts = ['Thành phố Thủ Dầu Một', 'Thị xã Bến Cát', 'Thị xã Tân Uyên', 'Thị xã Dĩ An', 'Huyện Bắc Tân Uyên', 'Huyện Bàu Bàng', 'Huyện Phú Giáo', 'Huyện Bình Dương'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'binh-phuoc') {
+                                                    var districts = ['Thị xã Đồng Xoài', 'Thị xã Bình Long', 'Huyện Bù Đăng', 'Huyện Bù Đốp', 'Huyện Bù Gia Mập', 'Huyện Chơn Thành', 'Huyện Đồng Phú', 'Huyện Hớn Quản', 'Huyện Lộc Ninh', 'Huyện Phú Riềng', 'Huyện Phước Long'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'binh-thuan') {
+                                                    var districts = ['Thành phố Phan Thiết', 'Thị xã La Gi', 'Huyện Bắc Bình', 'Huyện Đức Linh', 'Huyện Hàm Tân', 'Huyện Hàm Thuận Bắc', 'Huyện Hàm Thuận Nam', 'Huyện Phú Quý', 'Huyện Tánh Linh', 'Huyện Tuy Phong'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ca-mau') {
+                                                    var districts = ['Thành phố Cà Mau', 'Huyện Cái Nước', 'Huyện Đầm Dơi', 'Huyện Năm Căn', 'Huyện Ngọc Hiển', 'Huyện Phú Tân', 'Huyện Thới Bình', 'Huyện Trần Văn Thời', 'Huyện U Minh'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'cao-bang') {
+                                                    var districts = ['Thành phố Cao Bằng', 'Huyện Bảo Lâm', 'Huyện Bảo Lạc', 'Huyện Hà Quảng', 'Huyện Hòa An', 'Huyện Nguyên Bình', 'Huyện Quảng Uyên', 'Huyện Thạch An', 'Huyện Thông Nông', 'Huyện Trà Lĩnh', 'Huyện Trùng Khánh'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'da-nang') {
+                                                    var districts = ['Quận Cẩm Lệ', 'Quận Hải Châu', 'Quận Liên Chiểu', 'Quận Ngũ Hành Sơn', 'Quận Sơn Trà', 'Quận Thanh Khê', 'Huyện Hòa Vang'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'dak-lak') {
+                                                    var districts = ['Thành phố Buôn Ma Thuột', 'Thị Xã Buôn Hồ', 'Huyện Buôn Đôn', 'Huyện Cư Kuin', 'Huyện Cư Mgar', 'Huyện Ea H\'leo', 'Huyện Ea Kar', 'Huyện Ea Súp', 'Huyện Krông Ana', 'Huyện Krông Bông', 'Huyện Krông Buk', 'Huyện Krông Năng', 'Huyện Krông Pắc', 'Huyện Lắk', 'Huyện M\'Đrắk'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'dak-nong') {
+                                                    var districts = ['Thị Xã Gia Nghĩa', 'Huyện Cư Jút', 'Huyện Đắk Glong', 'Huyện Đắk Mil', 'Huyện Đắk R\'Lấp', 'Huyện Đắk Song', 'Huyện KRông Nô'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'dien-bien') {
+                                                    var districts = ['Mường Lay', 'Điện Biên Phủ', 'Mường Nhé', 'Tuần Giáo', 'Mường Chà', 'Tủa Chùa', 'Tuần Châu'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'dong-nai') {
+                                                    var districts = ['Biên Hòa', 'Long Khánh', 'Định Quán', 'Thống Nhất', 'Trảng Bom', 'Cẩm Mỹ', 'Vĩnh Cửu', 'Xuân Lộc', 'Long Thành', 'Nhơn Trạch'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'dong-thap') {
+                                                    var districts = ['Cao Lãnh', 'Hồng Ngự', 'Lai Vung', 'Lấp Vò', 'Tam Nông', 'Tân Hồng', 'Thanh Bình', 'Tháp Mười', 'Châu Thành', 'Lương Tài', 'Phong Điền', 'Thịnh Phát'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'gia-lai') {
+                                                    var districts = ['Pleiku', 'An Khê', 'Ayun Pa', 'Chư Pưh', 'Chư Sê', 'Chư Prông', 'Đăk Đoa', 'Đăk Pơ', 'Đức Cơ', 'Ia Grai', 'Kbang', 'Kông Chro', 'Krông Pa', 'Mang Yang', 'Phú Thiện'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ha-giang') {
+                                                    var districts = ['Hà Giang', 'Bắc Quang', 'Đồng Văn', 'Hoàng Su Phì', 'Mèo Vạc', 'Quản Bạ', 'Quang Bình', 'Vị Xuyên', 'Xín Mần', 'Yên Minh'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ha-nam') {
+                                                    var districts = ['Phủ Lý', 'Bình Lục', 'Duy Tiên', 'Kim Bảng', 'Lý Nhân', 'Thanh Liêm'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ha-tinh') {
+                                                    var districts = ['Hà Tĩnh', 'Cẩm Xuyên', 'Can Lộc', 'Đức Thọ', 'Hồng Lĩnh', 'Hương Khê', 'Hương Sơn', 'Kỳ Anh', 'Lộc Hà', 'Nghi Xuân', 'Thạch Hà', 'Vũ Quang'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'hai-duong') {
+                                                    var districts = ['Hải Dương', 'Chí Linh', 'Kinh Môn', 'Gia Lộc', 'Nam Sách', 'Kim Thành', 'Thanh Hà', 'Thanh Miện', 'Ninh Giang', 'Cẩm Giàng', 'Tứ Kỳ'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'hai-phong') {
+                                                    var districts = ['Hồng Bàng', 'Ngô Quyền', 'Lê Chân', 'Kiến An', 'Hải An', 'Đồ Sơn', 'Dương Kinh', 'Thuỷ Nguyên', 'An Dương', 'An Lão', 'Vĩnh Bảo', 'Tiên Lãng', 'Cát Hải'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'hau-giang') {
+                                                    var districts = ['Vị Thủy', 'Long Mỹ', 'Phụng Hiệp', 'Châu Thành A', 'Châu Thành', 'Ngã Bảy', 'Châu Thành B'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'hoa-binh') {
+                                                    var districts = ['Thành phố Hòa Bình', 'Đà Bắc', 'Kỳ Sơn', 'Lương Sơn', 'Kim Bôi', 'Cao Phong', 'Tân Lạc', 'Lạc Sơn', 'Yên Thủy', 'Lạc Thủy'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'thua-thien-hue') {
+                                                    var districts = ['Phú Vang', 'Phú Lộc', 'Hương Thủy', 'Hương Trà', 'Phong Điền', 'Quảng Điền', 'Thị xã Hương Thủy'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'hung-yen') {
+                                                    var districts = ['Hưng Yên', 'Văn Lâm', 'Văn Giang', 'Yên Mỹ', 'Mỹ Hào', 'Ân Thi', 'Khoái Châu', 'Tiên Lữ', 'Phù Cừ'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'khanh-hoa') {
+                                                    var districts = ['Nha Trang', 'Cam Ranh', 'Ninh Hòa', 'Khánh Vĩnh', 'Diên Khánh', 'Khánh Sơn', 'Trường Sa'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'kien-giang') {
+                                                    var districts = ['Rạch Giá', 'Hà Tiên', 'Kiên Lương', 'Hòn Đất', 'Tân Hiệp', 'Châu Thành', 'Giồng Riềng', 'Gò Quao', 'An Biên', 'An Minh', 'Vĩnh Thuận', 'Phú Quốc', 'Kiên Hải', 'U Minh Thượng', 'Giang Thành'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'kon-tum') {
+                                                    var districts = ['Kon Tum', 'Đắk Glei', 'Ngọc Hồi', 'Đắk Tô', 'Sa Thầy', 'Tu Mơ Rông', 'Kon Plông', 'Ia H\'Drai', 'Đắk Hà'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'lai-chau') {
+                                                    var districts = ['Lai Châu', 'Tam Đường', 'Mường Tè', 'Phong Thổ', 'Sìn Hồ', 'Than Uyên', 'Tân Uyên'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'lam-dong') {
+                                                    var districts = ['Thành phố Đà Lạt', 'Bảo Lộc', 'Bảo Lâm', 'Cát Tiên', 'Đạ Huoai', 'Đạ Tẻh', 'Đam Rông', 'Di Linh', 'Đơn Dương', 'Đức Trọng', 'Lạc Dương', 'Lâm Hà'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'lang-son') {
+                                                    var districts = ['Thành phố Lạng Sơn', 'Bắc Sơn', 'Bình Gia', 'Cao Lộc', 'Chi Lăng', 'Đình Lập', 'Hữu Lũng', 'Lộc Bình', 'Tràng Định', 'Văn Lãng', 'Văn Quan'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'lao-cai') {
+                                                    var districts = ['Thành phố Lào Cai', 'Bắc Hà', 'Bảo Thắng', 'Bảo Yên', 'Bát Xát', 'Mường Khương', 'Sa Pa', 'Si Ma Cai', 'Văn Bàn'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'long-an') {
+                                                    var districts = ['Thành phố Tân An', 'Bến Lức', 'Cần Đước', 'Cần Giuộc', 'Châu Thành', 'Đức Hòa', 'Đức Huệ', 'Mộc Hóa', 'Tân Hưng', 'Tân Thạnh', 'Tân Trụ', 'Thạnh Hóa', 'Thủ Thừa', 'Vĩnh Hưng'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'nam-dinh') {
+                                                    var districts = ['Thành phố Nam Định', 'Giao Thủy', 'Hải Hậu', 'Mỹ Lộc', 'Nam Trực', 'Nghĩa Hưng', 'Trực Ninh', 'Vụ Bản', 'Xuân Trường', 'Ý Yên'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'nghe-an') {
+                                                    var districts = ['Thành phố Vinh', 'Anh Sơn', 'Con Cuông', 'Cửa Lò', 'Diễn Châu', 'Đô Lương', 'Hưng Nguyên', 'Kỳ Sơn', 'Nam Đàn', 'Nghi Lộc', 'Nghĩa Đàn', 'Quế Phong', 'Quỳ Châu', 'Quỳ Hợp', 'Quỳnh Lưu', 'Tân Kỳ', 'Thái Hòa', 'Thành Nam', 'Thanh Chương', 'Tương Dương', 'Yên Thành'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ninh-binh') {
+                                                    var districts = ['Thành phố Ninh Bình', 'Gia Viễn', 'Hoa Lư', 'Kim Sơn', 'Nho Quan', 'Yên Khánh', 'Yên Mô'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'ninh-thuan') {
+                                                    var districts = ['Thành phố Phan Rang-Tháp Chàm', 'Thị xã Ninh Hòa', 'Huyện Bác Ái', 'Huyện Ninh Phước', 'Huyện Ninh Sơn', 'Huyện Ninh Thuận', 'Huyện Thuận Bắc', 'Huyện Thuận Nam'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'phu-tho') {
+                                                    var districts = ['Thành phố Việt Trì', 'Thị xã Phú Thọ', 'Huyện Cẩm Khê', 'Huyện Đoan Hùng', 'Huyện Hạ Hoà', 'Huyện Lâm Thao', 'Huyện Phù Ninh', 'Huyện Tam Nông', 'Huyện Tân Sơn', 'Huyện Thanh Ba', 'Huyện Thanh Sơn', 'Huyện Thanh Thuỷ', 'Huyện Yên Lập'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'phu-yen') {
+                                                    var districts = ['Thành phố Tuy Hòa', 'Thị xã Sông Cầu', 'Huyện Đông Hòa', 'Huyện Đồng Xuân', 'Huyện Phú Hòa', 'Huyện Sơn Hòa', 'Huyện Sông Hinh', 'Huyện Tây Hòa', 'Huyện Tuy An'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'quang-binh') {
+                                                    var districts = ['Thành phố Đồng Hới', 'Huyện Bố Trạch', 'Huyện Lệ Thủy', 'Huyện Minh Hóa', 'Huyện Quảng Ninh', 'Huyện Quảng Trạch', 'Huyện Tuyên Hóa'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'quang-nam') {
+                                                    var districts = ['Thành phố Đà Nẵng', 'Thành phố Hội An', 'Thị xã Điện Bàn', 'Huyện Bắc Trà My', 'Huyện Đại Lộc', 'Huyện Điện Bàn', 'Huyện Đông Giang', 'Huyện Hiệp Đức', 'Huyện Nam Giang', 'Huyện Nam Trà My', 'Huyện Nông Sơn', 'Huyện Phú Ninh', 'Huyện Phước Sơn', 'Huyện Quế Sơn', 'Huyện Tây Giang', 'Huyện Thăng Bình', 'Huyện Tiên Phước'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'quang-ngai') {
+                                                    var districts = ['Ba Tơ', 'Bình Sơn', 'Đức Phổ', 'Lý Sơn', 'Minh Long', 'Mộ Đức', 'Nghĩa Hành', 'Sơn Hà', 'Sơn Tây', 'Sơn Tịnh', 'Tây Trà', 'Trà Bồng', 'Tư Nghĩa'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'quang-ninh') {
+                                                    var districts = ['Ba Chẽ', 'Bình Liêu', 'Cẩm Phả', 'Cô Tô', 'Đầm Hà', 'Đông Triều', 'Hải Hà', 'Hạ Long', 'Hoành Bồ', 'Móng Cái', 'Quảng Yên', 'Tiên Yên', 'Uông Bí', 'Vân Đồn'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'quang-tri') {
+                                                    var districts = ['Cam Lộ', 'Cồn Cỏ', 'Đa Krông', 'Gio Linh', 'Hải Lăng', 'Hướng Hóa', 'Quảng Trị', 'Triệu Phong', 'Vĩnh Linh'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'soc-trang') {
+                                                    var districts = ['Châu Thành', 'Cù Lao Dung', 'Kế Sách', 'Long Phú', 'Mỹ Tú', 'Mỹ Xuyên', 'Ngã Năm', 'Sóc Trăng', 'Thạnh Trị', 'Trần Đề', 'Vĩnh Châu'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'son-la') {
+                                                    var districts = ['Bắc Yên', 'Mai Sơn', 'Mộc Châu', 'Mường La', 'Phù Yên', 'Quỳnh Nhai', 'Sông Mã', 'Sốp Cộp', 'Thuận Châu', 'Vân Hồ', 'Yên Châu'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'thai-binh') {
+                                                    var districts = ['Đông Hưng', 'Hưng Hà', 'Kiến Xương', 'Quỳnh Phụ', 'Thái Bình', 'Thái Thuỵ', 'Tiền Hải', 'Vũ Thư'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'thai-nguyen') {
+                                                    var districts = ['Thành phố Thái Nguyên', 'TP Sông Công', 'Huyện Đại Từ', 'Huyện Định Hóa', 'Huyện Đồng Hỷ', 'Huyện Phổ Yên', 'Huyện Phú Bình', 'Huyện Võ Nhai'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'thanh-hoa') {
+                                                    var districts = ['Thành phố Thanh Hóa', 'TP Bỉm Sơn', 'Huyện Bá Thước', 'Huyện Cẩm Thủy', 'Huyện Đông Sơn', 'Huyện Hà Trung', 'Huyện Hậu Lộc', 'Huyện Hoằng Hóa', 'Huyện Lang Chánh', 'Huyện Mường Lát', 'Huyện Nga Sơn', 'Huyện Ngọc Lặc', 'Huyện Như Thanh', 'Huyện Như Xuân', 'Huyện Nông Cống', 'Huyện Quan Hóa', 'Huyện Quan Sơn', 'Huyện Quảng Xương', 'Huyện Thạch Thành', 'Huyện Thiệu Hóa', 'Huyện Thọ Xuân', 'Huyện Thường Xuân', 'Huyện Tĩnh Gia', 'Huyện Triệu Sơn', 'Huyện Vĩnh Lộc', 'Huyện Yên Định'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'tien-giang') {
+                                                    var districts = ['Thành phố Mỹ Tho', 'Thị xã Gò Công', 'Huyện Cái Bè', 'Huyện Cai Lậy', 'Huyện Châu Thành', 'Huyện Chợ Gạo', 'Huyện Gò Công Tây', 'Huyện Gò Công Đông', 'Huyện Tân Phú Đông', 'Huyện Tân Phú', 'Huyện Tân Thạnh', 'Huyện Tân Trụ', 'Huyện Châu Thành', 'Huyện Cai Lậy'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'tra-vinh') {
+                                                    var districts = ['Thành phố Trà Vinh', 'Huyện Càng Long', 'Huyện Cầu Kè', 'Huyện Cầu Ngang', 'Huyện Châu Thành', 'Huyện Tiểu Cần', 'Huyện Trà Cú', 'Huyện Duyên Hải'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'tuyen-quang') {
+                                                    var districts = ['Thành phố Tuyên Quang', 'Hàm Yên', 'Lâm Bình', 'Na Hang', 'Chiêm Hóa', 'Yên Sơn', 'Sơn Dương'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'vinh-long') {
+                                                    var districts = ['Thành phố Vĩnh Long', 'Long Hồ', 'Mang Thít', 'Vũng Liêm', 'Bình Minh', 'Trà Ôn', 'Tam Bình'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'vinh-phuc') {
+                                                    var districts = ['Thành phố Vĩnh Yên', 'Phúc Yên', 'Lập Thạch', 'Tam Dương', 'Tam Đảo', 'Bình Xuyên', 'Sông Lô'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                } else if (city === 'yên-bai') {
+                                                    var districts = ['Thành phố Yên Bái', 'Lục Yên', 'Mù Căng Chải', 'Trạm Tấu', 'Văn Chấn', 'Yên Bình', 'Văn Yên'];
+                                                    for (var i = 0; i < districts.length; i++) {
+                                                        var district = districts[i];
+                                                        var option = document.createElement('option');
+                                                        option.value = district;
+                                                        option.innerHTML = district;
+                                                        districtSelect.appendChild(option);
+                                                    }
+                                                }
+                                            }</script>
+
+                                        <select>
+                                            <option>-- Choose Ward --</option>
+                                            <option>Điện Biên</option>
+                                        </select>
+                                    </div>
+
+                                    <br>
+                                    {#                  <div class="mb-3">#}
+                                    {#                    <input type="text" class="form-control form-control-lg" placeholder="Ward" aria-label="" aria-describedby="password-addon">#}
+                                    {##}
+                                    {#                  </div>#}
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Street"
+                                               aria-label="" aria-describedby="password-addon" name="street">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="number" class="form-control form-control-lg"
+                                               placeholder="Number Home" aria-label=""
+                                               name="number_home">
+                                    </div>
+
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">
+                                            Agree with <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                    <div class="text-center">
+                                        {#                    <a href="#"><button  type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button></a>#}
+                                        <button type="submit"
+                                                class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                <p class="mb-4 text-sm mx-auto">
+                                    Have an account?
+                                    <a href="{{ url_for('page_sign_in') }}"
+                                       class="text-primary text-gradient font-weight-bold">Sign IN</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+                        <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+                            <img src="/static/assets/img/shapes/pattern-lines.svg" alt="pattern-lines"
+                                 class="position-absolute opacity-4 start-0">
+
+                            <div class="position-relative">
+                                <img class="max-width-500 w-100 position-relative z-index-2"
+                                     src="/static/assets/img/illustrations/chat.png">
+                            </div>
+                            <h4 class="mt-5 text-white font-weight-bolder">
+                                Soft UI Design System
+                            </h4>
+                            <p class="text-white">
+                                &copy; <a target="_blank" class="text-white" href="https://bit.ly/3fKQZaL"
+                                          target="_blank">Creative Tim</a>
+                                - Coded by <a class="text-white" target="_blank" href="https://appseed.us"
+                                              target="_blank">AppSeed</a>.
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+    <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
+{% endblock javascripts %}
