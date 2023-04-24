@@ -7,7 +7,7 @@ PERMISSION = {
     "ADMIN": [
         {"user-model": ["list", "details", "view"]},
         {"store-model": ["list","details","edit","delete","create"]},
-        {"category-request": ["list","details","edit","delete","create"]},
+        {"category-request": ["list","details","edit"]},
         {"/": ["index"]},
     ],
     "STORE_OWNER": [
@@ -15,7 +15,7 @@ PERMISSION = {
         {"category-model": ["list","details","edit","delete","create"]},
         {"order-model": ["list","details","edit","delete","create"]},
         {"order-item-model": ["list","details","edit","delete","create"]},
-        {"category-request": ["list","details","edit","delete","create"]},
+        {"category-request": ["list","create"]},
         {"/": ["index"]},
     ],
     "CUSTOMER": [],

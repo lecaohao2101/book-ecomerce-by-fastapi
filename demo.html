@@ -1,21 +1,523 @@
-<!-- Start dropdowns & dropups -->
-<form action="/register_address" role="form" method="post">
-<div class="container py-7">
-  <div class="row">
-      <div class="row">
-        <div class="col-lg-4 ms-lg-auto col-md-6 col-sm-3 d-flex justify-content-center">
-          <div class="dropdown">
-            <button class="btn bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-              <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-              <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-  </div>
-</div></form>
-<!--   end dropdowns & dropups -->
+var wards = ['Phường Cống Vị', 'Phường Điện Biên', 'Phường Đội Cấn', 'Phường Giảng Võ', 'Phường Kim Mã', 'Phường Liễu Giai', 'Phường Ngọc Hà', 'Phường Ngọc Khánh', 'Phường Phúc Xá', 'Phường Quán Thánh', 'Phường Thành Công', 'Phường Trúc Bạch', 'Phường Vĩnh Phúc', 'Phường Nguyễn Trung Trực'],
+var wards = ['Phường Cổ Nhuế 1', 'Phường Cổ Nhuế 2', 'Phường Đông Ngạc', 'Phường Đức Thắng', 'Phường Liên Mạc', 'Phường Minh Khai', 'Phường Phú Diễn', 'Phường Phúc Diễn', 'Phường Tây Tựu', 'Phường Thượng Cát', 'Phường Thụy Phương', 'Phường Xuân ĐỈnh', 'Phường Xuân Tảo'],
+var wards = ['Phường Dịch Vọng', 'Phường Dịch Vọng Hậu', 'Phường Mai Dịch', 'Phường Nghĩa Đô', 'Phường Nghĩa Tân', 'Phường Quan Hoa', 'Phường Trung Hoà', 'Phường Yên Hoà'],
+var wards = ['Phường Cát Linh', 'Phường Hàng Bột', 'Phường Khâm Thiên', 'Phường Khương Thượng', 'Phường Kim Liên', 'Phường Láng Hạ', 'Phường Láng Thượng', 'Phường Nam Đồng', 'Phường Ngã Tư Sở', 'Phường ô Chợ Dừa', 'Phường Phương Liên', 'Phường Phương Mai', 'Phường Quang Trung', 'Phường Quốc Tử Giám', 'Phường Thịnh Quang', 'Phường Thổ Quan', 'Phường Trung Liệt', 'Phường Trung Phụng', 'Phường Trung Tự', 'Phường Văn Chương', 'Phường Văn Miếu'],
+HD var wards = ['Phường Đồng Mai', 'Phường Hà Cầu', 'Phường La Khê', 'Phường Mộ Lao', 'Phường Nguyễn Trãi', 'Phường Phú La', 'Phường Phúc La','Phường Quang Trung', 'Phường Vạn Phúc', 'Phường Văn Quán', 'Phường Yên Nghĩa', 'Phường Yết Kiêu', 'Xã Biên Giang', 'Xã Dương Nội', 'Xã Kiến Hưng', 'Xã Phú Lãm', 'Xã Phú Lương'],
+HBT var wards = ['Phường Bạch Đằng', 'Phường Bách Khoa', 'Phường Bạch Mai', 'Phường Bùi Thị Xuân', 'Phường Cầu Dền', 'Phường Đống Mác', 'Phường Đồng Nhân', 'Phường Đồng Tâm', 'Phường Lê Đại Hành', 'Phường Minh Khai', 'Phường Ngô Thì Nhậm', 'Phường Nguyễn Du', 'Phường Phạm Đình Hổ', 'Phường Phố Huế', 'Phường Quỳnh Lôi', 'Phường Quỳnh Mai', 'Phường Thanh Lương', 'Phường Thanh Nhàn', 'Phường Trương Định', 'Phường Vĩnh Tuy'],
+HK var wards = ['Phường Chương Dương', 'Phường Cửa Đông', 'Phường Cửa Nam', 'Phường Đồng Xuân', 'Phường Hàng Bạc', 'Phường Hàng Bài', 'Phường Hàng Bồ', 'Phường Hàng Bông', 'Phường Hàng Buồm', 'Phường Hàng Đào', 'Phường Hàng Gai', 'Phường Hàng Mã', 'Phường Hàng Trống', 'Phường Lý Thái Tổ', 'Phường Phan Chu Trinh', 'Phường Phúc Tân', 'Phường Trần Hưng Đạo', 'Phường Tràng Tiền'],
+HM var wards = ['Phường Đại Kim', 'Phường Định Công', 'Phường Giáp Bát', 'Phường Hoàng Liệt', 'Phường Hoàng Văn Thụ', 'Phường Lĩnh Nam', 'Phường Mai Động', 'Phường Tân Mai', 'Phường Thanh Trì', 'Phường Thịnh Liệt', 'Phường Trần Phú', 'Phường Tương Mai', 'Phường Vĩnh Hưng', 'Phường Yên Sở'],
+LB var wards = ['Phường Bồ Đề', 'Phường Cự Khối', 'Phường Đức Giang', 'Phường Gia Thuỵ', 'Phường Giang Biên', 'Phường Long Biên', 'Phường Ngọc Lâm', 'Phường Ngọc Thuỵ', 'Phường Phúc Đồng', 'Phường Phúc Lợi', 'Phường Sài Đồng', 'Phường Thạch Bàn', 'Phường Thượng Thanh', 'Phường Việt Hưng'],
+NTL var wards = ['Phường Cầu Diễn', 'Phường Đại Mỗ', 'Phường Mễ Trì', 'Phường Mỹ Đình 1', 'Phường Mỹ Đình 2', 'Phường Phú Đô', 'Phường Tây Mỗ', 'Phường Trung Văn', 'Phường Xuân Phương', 'Phường. Phương Canh'],
+TH var wards = ['Phường Bưởi', 'Phường Nhật Tân', 'Phường Phú Thượng', 'Phường Quảng An', 'Phường Thuỵ Khuê', 'Phường Tứ Liên', 'Phường Xuân La', 'Phường Yên Phụ'],
+TX var wards = ['Phường Hạ Đình', 'Phường Khương Đình', 'Phường Khương Mai', 'Phường Khương Trung', 'Phường Kim Giang', 'Phường Nhân Chính', 'Phường Phương Liệt', 'Phường Thanh Xuân Bắc', 'Phường Thanh Xuân Nam', 'Phường Thanh Xuân Trung', 'Phường Thượng Đình'],
+BV var wards = ['Thị trấn Tây Đằng', 'Xã Ba Trại', 'Xã Ba Vì', 'Xã Cẩm Lĩnh', 'Xã Cam Thượng', 'Xã Châu Sơn', 'Xã Chu Minh', 'Xã Cổ Đô', 'Xã Đông Quang', 'Xã Đồng Thái', 'Xã Khánh Thượng', 'Xã Minh Châu', 'Xã Minh Quang', 'Xã Phong Vân', 'Xã Phú Châu', 'Xã Phú Cường', 'Xã Phú Đông', 'Xã Phú Phương', 'Xã Phú Sơn', 'Xã Sơn Đà', 'Xã Tản Hồng', 'Xã Tản Lĩnh', 'Xã Thái Hòa', 'Xã Thuần Mỹ', 'Xã Thụy An', 'Xã Tiên Phong', 'Xã Tòng Bạt', 'Xã Vân Hòa', 'Xã Vạn Thắng', 'Xã Vật Lại', 'Xã Yên Bài']
+CM var wards = ['Thị trấn Chúc Sơn', 'Thị trấn Xuân Mai', 'Xã Đại Yên', 'Xã Đồng Lạc', 'Xã Đồng Phú', 'Xã Đông Phương Yên', 'Xã Đông Sơn', 'Xã Hòa Chính', 'Xã Hoàng Diệu', 'Xã Hoàng Văn Thụ', 'Xã Hồng Phong', 'Xã Hợp Đồng', 'Xã Hữu Văn', 'Xã Lam Điền', 'Xã Mỹ Lương', 'Xã Nam Phương Tiến', 'Xã Ngọc Hòa', 'Xã Phú Nam An', 'Xã Phú Nghĩa', 'Xã Phụng Châu', 'Xã Quảng Bị', 'Xã Tân Tiến', 'Xã Thanh Bình', 'Xã Thượng Vực', 'Xã Thụy Hương', 'Xã Thủy Xuân Tiên', 'Xã Tiên Phương', 'Xã Tốt Động', 'Xã Trần Phú', 'Xã Trung Hòa', 'Xã Trường Yên', 'Xã Văn Võ'],
+DP var wards = ['Thị trấn Phùng', 'Xã Đan Phượng', 'Xã Đồng Tháp', 'Xã Hạ Mỗ', 'Xã Hồng Hà', 'Xã Liên Hà', 'Xã Liên Hồng', 'Xã Liên Trung', 'Xã Phương Đình', 'Xã Song Phượng', 'Xã Tân Hội', 'Xã Tân Lập', 'Xã Thọ An', 'Xã Thọ Xuân', 'Xã Thượng Mỗ', 'Xã Trung Châu'],
+da var wards = ['Thị trấn Đông Anh', 'Xã Bắc Hồng', 'Xã Cổ Loa', 'Xã Đại Mạch', 'Xã Đông Hội', 'Xã Dục Tú', 'Xã Hải Bối', 'Xã Kim Chung', 'Xã Kim Nỗ', 'Xã Liên Hà', 'Xã Mai Lâm', 'Xã Nam Hồng', 'Xã Nguyên Khê', 'Xã Tàm Xá', 'Xã Tầm Xá', 'Xã Thuỵ Lâm', 'Xã Tiên Dương', 'Xã Uy Nỗ', 'Xã Vân Hà', 'Xã Vân Nội', 'Xã Việt Hùng', 'Xã Vĩnh Ngọc', 'Xã Võng La', 'Xã Xuân Canh', 'Xã Xuân Nộn'],
+gl var wards = ['Thị Trấn Trâu Quỳ', 'Thị trấn Yên Viên', 'Xã Bát Tràng', 'Xã Cổ Bi', 'Xã Đa Tốn', 'Xã Đặng Xá', 'Xã Đình Xuyên', 'Xã Đông Dư', 'Xã Dương Hà', 'Xã Dương Quang', 'Xã Dương Xá', 'Xã Kiêu Kỵ', 'Xã Kim Lan', 'Xã Kim Sơn', 'Xã Lệ Chi', 'Xã Ninh Hiệp', 'Xã Phù Đổng', 'Xã Phú Thị', 'Xã Trung Mầu', 'Xã Văn Đức', 'Xã Yên Thường', 'Xã Yên Viên'],
+hd var wards = ['Thị trấn Trạm Trôi', 'Xã An Khánh', 'Xã An Thượng', 'Xã Cát Quế', 'Xã Đắc Sở', 'Xã Di Trạch', 'Xã Đông La', 'Xã Đức Giang', 'Xã Đức Thượng', 'Xã Dương Liễu', 'Xã Kim Chung', 'Xã La Phù', 'Xã Lại Yên', 'Xã Minh Khai', 'Xã Sơn Đồng', 'Xã Song Phương', 'Xã Tiền Yên', 'Xã Vân Canh', 'Xã Vân Côn', 'Xã Yên Sở'],
+ml var wards = ['Thị trấn Chi Đông', 'Thị trấn Quang Minh', 'Xã Chu Phan', 'Xã Đại Thịnh', 'Xã Hoàng Kim', 'Xã Kim Hoa', 'Xã Liên Mạc', 'Xã Mê Linh', 'Xã Tam Đồng', 'Xã Thạch Đà', 'Xã Thanh Lâm', 'Xã Tiền Phong', 'Xã Tiến Thắng', 'Xã Tiến Thịnh', 'Xã Tráng Việt', 'Xã Tự Lập', 'Xã Văn Khê', 'Xã Vạn Yên'],
+md var wards = ['Thị trấn Đại Nghĩa', 'Xã An Mỹ', 'Xã An Phú', 'Xã An Tiến', 'Xã Bột Xuyên', 'Xã Đại Hưng', 'Xã Đốc Tín', 'Xã Đồng Tâm', 'Xã Hồng Sơn', 'Xã Hợp Thanh', 'Xã Hợp Tiến', 'Xã Hùng Tiến', 'Xã Hương Sơn', 'Xã Lê Thanh', 'Xã Mỹ Thành', 'Xã Phù Lưu Tế', 'Xã Phúc Lâm', 'Xã Phùng Xá', 'Xã Thượng Lâm', 'Xã Tuy Lai', 'Xã Vạn Kim', 'Xã Xuy Xá'],
+px var wards = ['Thị trấn Phú Minh', 'Thị trấn Phú Xuyên', 'Xã Bạch Hạ', 'Xã Châu Can', 'Xã Chuyên Mỹ', 'Xã Đại Thắng', 'Xã Đại Xuyên', 'Xã Hoàng Long', 'Xã Hồng Minh', 'Xã Hồng Thái', 'Xã Khai Thái', 'Xã Minh Tân', 'Xã Nam Phong', 'Xã Nam Tiến', 'Xã Nam Triều', 'Xã Phú Túc', 'Xã Phú Yên', 'Xã Phúc Tiến', 'Xã Phượng Dực', 'Xã Quang Lãng', 'Xã Quang Trung', 'Xã Sơn Hà', 'Xã Tân Dân', 'Xã Tri Thủy', 'Xã Tri Trung', 'Xã Văn Hoàng', 'Xã Vân Từ'],
+pt var wards = ['Thị trấn Phúc Thọ', 'Xã Hát Môn', 'Xã Hiệp Thuận', 'Xã Liên Hiệp', 'Xã Long Xuyên', 'Xã Ngọc Tảo', 'Xã Phúc Hòa', 'Xã Phụng Thượng', 'Xã Phương Độ', 'Xã Sen Chiểu', 'Xã Sen Phương', 'Xã Tam Hiệp', 'Xã Tam Thuấn', 'Xã Thanh Đa', 'Xã Thọ Lộc', 'Xã Thượng Cốc', 'Xã Tích Giang', 'Xã Trạch Mỹ Lộc', 'Xã Vân Hà', 'Xã Vân Nam', 'Xã Vân Phúc', 'Xã Võng Xuyên', 'Xã Xuân Đình'],
+qa var wards = ['Thị trấn Quốc Oai', 'Xã Cấn Hữu', 'Xã Cộng Hòa', 'Xã Đại Thành', 'Xã Đồng Quang', 'Xã Đông Xuân', 'Xã Đông Yên', 'Xã Hòa Thạch', 'Xã Liệp Tuyết', 'Xã Nghĩa Hương', 'Xã Ngọc Liệp', 'Xã Ngọc Mỹ', 'Xã Phú Cát', 'Xã Phú Mãn', 'Xã Phượng Cách', 'Xã Sài Sơn', 'Xã Tân Hòa', 'Xã Tân Phú', 'Xã Thạch Thán', 'Xã Tuyết Nghĩa', 'Xã Yên Sơn'],
+ss var wards = ['Thị trấn Sóc Sơn', 'Xã Bắc Phú', 'Xã Bắc Sơn', 'Xã Đông Xuân', 'Xã Đức Hoà', 'Xã Hiền Ninh', 'Xã Hồng Kỳ', 'Xã Kim Lũ', 'Xã Mai Đình', 'Xã Minh Phú', 'Xã Minh Trí', 'Xã Nam Sơn', 'Xã Phú Cường', 'Xã Phù Linh', 'Xã Phù Lỗ', 'Xã Phú Minh', 'Xã Quang Tiến', 'Xã Tân Dân', 'Xã Tân Hưng', 'Xã Tân Minh', 'Xã Thanh Xuân', 'Xã Tiên Dược', 'Xã Trung Giã', 'Xã Việt Long', 'Xã Xuân Giang', 'Xã Xuân Thu'],
+tt var wards = ['Thị trấn Liên Quan', 'Xã Bình Phú', 'Xã Bình Yên', 'Xã Cẩm Yên', 'Xã Cần Kiệm', 'Xã Canh Nậu', 'Xã Chàng Sơn', 'Xã Đại Đồng', 'Xã Dị Nậu', 'Xã Đồng Trúc', 'Xã Hạ Bằng', 'Xã Hương Ngải', 'Xã Hữu Bằng', 'Xã Kim Quan', 'Xã Lại Thượng', 'Xã Phú Kim', 'Xã Phùng Xá', 'Xã Tân Xã', 'Xã Thạch Hoà', 'Xã Thạch Xá', 'Xã Tiến Xuân', 'Xã Yên Bình', 'Xã Yên Trung'],
+to var wards = ['Thị trấn Kim Bài', 'Xã Bích Hòa', 'Xã Bình Minh', 'Xã Cao Dương', 'Xã Cao Viên', 'Xã Cự Khê', 'Xã Dân Hòa', 'Xã Đỗ Động', 'Xã Hồng Dương', 'Xã Kim An', 'Xã Kim Thư', 'Xã Liên Châu', 'Xã Mỹ Hưng', 'Xã Phương Trung', 'Xã Tam Hưng', 'Xã Tân Ước', 'Xã Thanh Cao', 'Xã Thanh Mai', 'Xã Thanh Thùy', 'Xã Thanh Văn', 'Xã Xuân Dương'],
+tt var wards = ['Thị trấn Văn Điển', 'Xã Đại áng', 'Xã Đông Mỹ', 'Xã Duyên Hà', 'Xã Hữu Hoà', 'Xã Liên Ninh', 'Xã Ngọc Hồi', 'Xã Ngũ Hiệp', 'Xã Tả Thanh Oai', 'Xã Tam Hiệp', 'Xã Tân Triều', 'Xã Thanh Liệt', 'Xã Tứ Hiệp', 'Xã Vạn Phúc', 'Xã Vĩnh Quỳnh', 'Xã Yên Mỹ'],
+tt var wards = ['Thị trấn Thường Tín', 'Xã Chương Dương', 'Xã Dũng Tiến', 'Xã Duyên Thái', 'Xã Hà Hồi', 'Xã Hiền Giang', 'Xã Hòa Bình', 'Xã Hồng Vân', 'Xã Khánh Hà', 'Xã Lê Lợi', 'Xã Liên Phương', 'Xã Minh Cường', 'Xã Nghiêm Xuyên', 'Xã Nguyễn Trãi', 'Xã Nhị Khê', 'Xã Ninh Sở', 'Xã Quất Động', 'Xã Tân Minh', 'Xã Thắng Lợi', 'Xã Thống Nhất', 'Xã Thư Phú', 'Xã Tiền Phong', 'Xã Tô Hiệu', 'Xã Tự Nhiên', 'Xã Văn Bình', 'Xã Vạn Điểm', 'Xã Văn Phú', 'Xã Vân Tảo', 'Xã Văn Tự'],
+uh var wards = ['Thị trấn Vân Đình', 'Xã Cao Thành', 'Xã Đại Cường', 'Xã Đại Hùng', 'Xã Đội Bình', 'Xã Đông Lỗ', 'Xã Đồng Tân', 'Xã Đồng Tiến', 'Xã Hòa Lâm', 'Xã Hòa Nam', 'Xã Hòa Phú', 'Xã Hoa Sơn', 'Xã Hòa Xá', 'Xã Hồng Quang', 'Xã Kim Đường', 'Xã Liên Bạt', 'Xã Lưu Hoàng', 'Xã Minh Đức', 'Xã Phù Lưu', 'Xã Phương Tú', 'Xã Quảng Phú Cầu', 'Xã Sơn Công', 'Xã Tảo Dương Văn', 'Xã Trầm Lộng', 'Xã Trung Tú', 'Xã Trường Thịnh', 'Xã Vạn Thái', 'Xã Viên An', 'Xã Viên Nội'],
+st var wards = ['Phường Lê Lợi', 'Phường Ngô Quyền', 'Phường Phú Thịnh', 'Phường Quang Trung', 'Phường Sơn Lộc', 'Phường Trung Hưng', 'Phường Trung Sơn Trầm', 'Phường Viên Sơn', 'Phường Xuân Khanh', 'Xã Cổ Đông', 'Xã Đường Lâm', 'Xã Kim Sơn', 'Xã Sơn Đông', 'Xã Thanh Mỹ', 'Xã Xuân Sơn'],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = ['','','','','','','','','','','','','','','',''],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+var wards = [],
+
+
+                                            'ho-chi-minh'
+                                            'ha-noi'
+                                            'da-nang'
+                                            'an-giang'
+                                            'ba-ria-vung-tau'
+                                            'bac-giang'
+                                            'bac-kan'
+                                            'bac-lieu'
+                                            'bac-ninh'
+                                            'ben-tre'
+                                            'binh-dinh'
+                                            'binh-duong'
+                                            'binh-phuoc'
+                                            'binh-thuan'
+                                            'ca-mau'
+                                            'can-tho'
+                                            'cao-bang'
+                                            'dak-lak'
+                                            'dak-nong'
+                                            'dien-bien'
+                                            'dong-nai'
+                                            'dong-thap'
+                                            'gia-lai'
+                                            'ha-giang'
+                                            'ha-nam'
+                                            'ha-tinh'
+                                            'hai-duong'
+                                            'hai-phong'
+                                            'hau-giang'
+                                            'hoa-binh'
+                                            'hung-yen'
+                                            'khanh-hoa'
+                                            'kien-giang'
+                                            'kon-tum'
+                                            'lai-chau'
+                                            'lam-dong'
+                                            'lang-son'
+                                            'lao-cai'
+                                            'long-an'
+                                            'nam-dinh'
+                                            'nghe-an'
+                                            'ninh-binh'
+                                            'ninh-thuan'
+                                            'phu-tho'
+                                            'phu-yen'
+                                            'quang-binh'
+                                            'quang-nam'
+                                            'quang-ngai'
+                                            'quangninh'
+                                            'quang-tri'
+                                            'soc-trang'
+                                            'son-la'
+                                            'tay-ninh'
+                                            'thai-binh'
+                                            'thai-nguyen'
+                                            'thanh-hoa'
+                                            'thua-thien-hue'
+                                            'tien-giang'
+                                            'tra-vinh'
+                                            'tuyen-quang'
+                                            'vinh-long'
+                                            'vinh-phuc'
+                                            'yen-bai'
+
+
+
+'da-nang': {
+
+                                            },
+                                            'an-giang': {
+
+                                            },
+                                            'ba-ria-vung-tau': {
+
+                                            },
+                                            'bac-giang': {
+
+                                            },
+                                            'bac-kan': {
+
+                                            },
+                                            'bac-lieu': {
+
+                                            },
+                                            'bac-ninh': {
+
+                                            },
+                                            'ben-tre': {
+
+                                            },
+                                            'binh-dinh': {
+
+                                            },
+                                            'binh-duong': {
+
+                                            },
+                                            'binh-phuoc': {
+
+                                            },
+                                            'binh-thuan': {
+
+                                            },
+                                            'ca-mau': {
+
+                                            },
+                                            'can-tho': {
+
+                                            },
+                                            'cao-bang': {
+
+                                            },
+                                            'dak-lak': {
+
+                                            },
+                                            'dak-nong': {
+
+                                            },
+                                            'dien-bien': {
+
+                                            },
+                                            'dong-nai': {
+
+                                            },
+                                            'dong-thap': {
+
+                                            },
+                                            'gia-lai': {
+
+                                            },
+                                            'ha-giang': {
+
+                                            },
+                                            'ha-nam': {
+
+                                            },
+                                            'ha-tinh': {
+
+                                            },
+                                            'hai-duong': {
+
+                                            },
+                                            'hai-phong': {
+
+                                            },
+                                            'hau-giang': {
+
+                                            },
+                                            'hoa-binh': {
+
+                                            },
+                                            'hung-yen': {
+
+                                            },
+                                            'khanh-hoa': {
+
+                                            },
+                                            'kien-giang': {
+
+                                            },
+                                            'kon-tum': {
+
+                                            },
+                                            'lai-chau': {
+
+                                            },
+                                            'lam-dong': {
+
+                                            },
+                                            'lang-son': {
+
+                                            },
+                                            'lao-cai': {
+
+                                            },
+                                            'long-an': {
+
+                                            },
+                                            'nam-dinh': {
+
+                                            },
+                                            'nghe-an': {
+
+                                            },
+                                            'ninh-binh': {
+
+                                            },
+                                            'ninh-thuan': {
+
+                                            },
+                                            'phu-tho': {
+
+                                            },
+                                            'phu-yen': {
+
+                                            },
+                                            'quang-binh': {
+
+                                            },
+                                            'quang-nam': {
+
+                                            },
+                                            'quang-ngai': {
+
+                                            },
+                                            'quang-ninh': {
+
+                                            },
+                                            'quang-tri': {
+
+                                            },
+                                            'soc-trang': {
+
+                                            },
+                                            'son-la': {
+
+                                            },
+                                            'tay-ninh': {
+
+                                            },
+                                            'thai-binh': {
+
+                                            },
+                                            'thai-nguyen': {
+
+                                            },
+                                            'thanh-hoa': {
+
+                                            },
+                                            'thua-thien-hue': {
+
+                                            },
+                                            'tien-giang': {
+
+                                            },
+                                            'tra-vinh': {
+
+                                            },
+                                            'tuyen-quang': {
+
+                                            },
+                                            'vinh-long': {
+
+                                            },
+                                            'vinh-phuc': {
+
+                                            },
+                                            'yen-bai': {
+
+                                            },

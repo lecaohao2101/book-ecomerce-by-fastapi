@@ -120,7 +120,7 @@ async def register(
 
 
 @app.post('/login')
-def login(
+async def login(
         request: Request,
         email: str = Form(default=None),
         password: str = Form(default=None),
@@ -132,24 +132,13 @@ def login(
 
     if valid_user:
         if valid_user.password == password:
-            # request.session.update(
-            #     {"user_id": valid_user.id, "role": valid_user.role_id}
-            # )
-            # return True
-            # return RedirectResponse(url="pages/stores_book", status_code=status.HTTP_302_FOUND)
-            return TEMPLATES.TemplateResponse("pages/stores_book.html", {
-                "request": request,
-                "config": settings,
-                "id":id
-            })
-
-    # if valid_user:
-    #     if valid_user.password == password and valid_user.role_id == 'CUSTOMER':
-    #             return RedirectResponse(url='pages/stores_book')
-    #     elif valid_user.password == password and valid_user.role_id == 'STORE_OWNER':
-    #             return RedirectResponse(url='pages/page-customer')
+            request.session.update(
+                {"user_id": valid_user.id, "role": valid_user.role_id}
+            )
+            return RedirectResponse(url="/stores/", status_code=status.HTTP_302_FOUND)
     return TEMPLATES.TemplateResponse("pages/page-sign-in.html", {
         "request": request,
         "message": "Invalid information login"
     })
+
 
