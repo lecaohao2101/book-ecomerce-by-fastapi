@@ -1,11 +1,17 @@
+from fastapi import FastAPI, Depends, HTTPException, status, Form
 from fastapi import Request
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from sqladmin import Admin
+from sqlalchemy.orm import Session
 from starlette.middleware.sessions import SessionMiddleware
 
-from fastapi.staticfiles import StaticFiles
-from sqladmin import Admin
-
 from src.config import settings
-from src.database.models import CategoryRequest
+from src.database.models import UserModel
+from src.database.models.address import AddressModel
+from src.database.session import *
+from src.helpers.login_check import SessionLoginMiddleware
 from src.routers.admin.address import AdressAdmin
 from src.routers.admin.authentication import AdminAuth
 from src.routers.admin.author import AuthorAdmin
@@ -13,23 +19,31 @@ from src.routers.admin.book import BookAdmin
 from src.routers.admin.category import CategoryAdmin
 from src.routers.admin.order import OrderAdmin
 from src.routers.admin.order_item import OrderItemAdmin
-from src.routers.admin.user import UserAdmin
-from src.routers.admin.store import StoreAdmin
 from src.routers.admin.request import RequestAdmin
-
+from src.routers.admin.store import StoreAdmin
+from src.routers.admin.user import UserAdmin
 from src.routers.ui_routes import router as ui_router, TEMPLATES
-from src.routers.products import router as product_router
-from src.database.models.address import AddressModel
-from src.database.session import *
-
-from fastapi import FastAPI, Depends, HTTPException, status, Form
-from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
-from src.database.models import UserModel
-
 
 app = FastAPI()
+
+
+@app.middleware("http")
+async def check_login(request: Request, call_next):
+    session = request.session
+    if request.url.path.startswith("/static"):
+        response = await call_next(request)
+        return response
+    if request.url.path not in ["/", "/login", "/register", "/page-sign-in", "/page-sign-up"]:
+        if session.get("user_id"):
+            response = await call_next(request)
+            return response
+        else:
+            return RedirectResponse(url="/page-sign-in", status_code=status.HTTP_302_FOUND)
+    else:
+        response = await call_next(request)
+        return response
+
+
 app.add_middleware(SessionMiddleware, secret_key="app-dev")
 templates = Jinja2Templates(directory="templates")
 
@@ -41,7 +55,6 @@ templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="src/static"), name="static")
 
 app.include_router(ui_router)
-app.include_router(product_router)
 
 # ADMIN
 authentication_backend = AdminAuth(secret_key="app-dev")
@@ -51,7 +64,6 @@ admin = Admin(
     authentication_backend=authentication_backend,
     templates_dir="src/templates"
 )
-
 
 admin.add_view(UserAdmin)
 admin.add_view(CategoryAdmin)
@@ -118,7 +130,6 @@ async def register(
     return RedirectResponse(url="/page-sign-in", status_code=status.HTTP_302_FOUND)
 
 
-
 @app.post('/login')
 async def login(
         request: Request,
@@ -135,10 +146,15 @@ async def login(
             request.session.update(
                 {"user_id": valid_user.id, "role": valid_user.role_id}
             )
-            return RedirectResponse(url="/stores/", status_code=status.HTTP_302_FOUND)
+            return RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
     return TEMPLATES.TemplateResponse("pages/page-sign-in.html", {
         "request": request,
         "message": "Invalid information login"
     })
 
-
+@app.get('/logout')
+async def logout(
+        request: Request,
+):
+    request.session.clear()
+    return RedirectResponse(url="/page-sign-in", status_code=status.HTTP_302_FOUND)

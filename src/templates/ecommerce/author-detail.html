@@ -1,0 +1,99 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Author {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} blog-author bg-gray-100 {% endblock body_class %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+
+  <section class="py-sm-7 py-5 position-relative">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mx-auto">
+          <div class="row py-lg-7 py-5">
+            <div class="col-lg-3 col-md-5 position-relative my-auto">
+              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="{{author.image}}">
+            </div>
+            <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="mb-0">{{ author.name}}</h4>
+                <div class="d-block">
+                  <button type="button" class="btn btn-sm btn-outline-info text-nowrap mb-0">Follow</button>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-auto">
+                  <span class="h6">323</span>
+                  <span>Posts</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">3.5k</span>
+                  <span>Followers</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">260</span>
+                  <span>Following</span>
+                </div>
+              </div>
+              <p class="text-lg mb-0">
+                {{ author.description }} <br><a href="javascript:;" class="text-info icon-move-right">More about me
+                  <i class="fas fa-arrow-right text-sm ms-1"></i>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3 class="mb-5">Check my book</h3>
+        </div>
+      </div>
+      <div class="row">
+          {% for book in books %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="card card-plain card-blog">
+            <div class="card-image border-radius-lg position-relative">
+              <a href="{{ url_for("get_book", id=book.id) }}">
+                <img class="w-100 border-radius-lg move-on-hover shadow" src="{{ book.image }}">
+              </a>
+            </div>
+            <div class="card-body px-0">
+              <h5>
+                <a href="{{ url_for("get_book", id=book.id) }}" class="text-dark font-weight-bold">{{ book.name}}</a>
+              </h5>
+              <p>
+                {{ book.description }}
+              </p>
+              <a href="{{ url_for("get_book", id=book.id) }}" class="text-info icon-move-right">Read More
+                <i class="fas fa-arrow-right text-sm"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+          {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
+{% endblock javascripts %}

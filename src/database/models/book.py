@@ -38,8 +38,8 @@ class BookModel(Base):
     list_book_order_item: Mapped["OrderItemModel"] = relationship(
          lazy="subquery", back_populates="book"
     )
-    list_book_author: Mapped["AuthorModel"] = relationship(
-         "AuthorModel", lazy="subquery", back_populates="book"
+    author: Mapped["AuthorModel"] = relationship(
+         "AuthorModel", lazy="subquery", back_populates="books"
     )
 
     def __str__(self):

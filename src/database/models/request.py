@@ -17,5 +17,6 @@ class CategoryRequest(Base):
     store_owner_id: Mapped[str] = mapped_column(
         String
     )
+
     def __str__(self):
         return f'{self.name}{self.status}'

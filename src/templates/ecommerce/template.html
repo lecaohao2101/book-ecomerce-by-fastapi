@@ -9,33 +9,33 @@
 
 {% block content %}
 
-  {% include "includes/navigation-transparent.html" %}
+  {% include "includes/navigation.html" %}
 
   <!-- End Navbar -->
   <!-- -------- START HEADER 7 w/ text and video ------- -->
   <header class="bg-gradient-dark">
     <div class="page-header section-height-75" 
-         style="background-image: url('/static/products/{{ product.slug }}/cover.jpg');">
+         style="background-image: url('{{ book.image }}');">
       <span class="mask bg-gradient-info opacity-6">
       </span>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
             <h1 class="text-white">
-              {{ product.name }}
+              {{ book.name }}
             </h1>
             <p class="lead mb-4 text-white opacity-8">
-              {{ product.info }}
+              {{ book.description }}
             </p>
             
             <!-- used to trigger the right product -->
-            <span style="display:none" id="product_slug">{{ product.slug }}</span>
+            <span style="display:none" id="product_slug">{{ book.name }}</span>
             
 
             {% if config.stripe_is_active %}
 
               <a id="submitBtn" href="#" class="btn bg-white text-dark">
-                Buy Product - ${{ product.price }}
+                Buy Product - ${{ book.price }}
               </a>
 
             {% else %}
@@ -43,7 +43,7 @@
               <button type="button" class="btn bg-white text-dark" 
                       data-bs-toggle="modal" 
                       data-bs-target="#stripeModal">
-                Buy Product - ${{ product.price }}
+                Buy Product - ${{ book.price }}
               </button>
 
             {% endif %}
@@ -111,7 +111,7 @@
                   Product Description
                 </h5>
                 <p>
-                  {{ product.full_description }}  
+                  {{ book.full_description }}
                 </p>
               </div>
             </div>
@@ -124,18 +124,18 @@
           <div class="card shadow-lg">
             <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
               <div class="d-block blur-shadow-image">
-                <img src="/static/products/{{ product.slug }}/card.jpg" alt="img-blur-shadow" class="img-fluid shadow rounded-3">
+                <img src="{{book.image}}" alt="img-blur-shadow" class="img-fluid shadow rounded-3">
               </div>
               <div class="colored-shadow" style="background-image: url(&quot;https://images.unsplash.com/photo-1604446062885-9f29f136fe87?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=3300&amp;q=80&quot;);"></div>
             </div>
             <div class="card-body">
               <a href="javascript:;">
                 <h5 class="mt-3">
-                  {{ product.name }}
+                  {{ book.name }}
                 </h5>
               </a>
               <p>
-                {{ product.short_description }}
+                {{ book.description }}
               </p>
             </div>
           </div>

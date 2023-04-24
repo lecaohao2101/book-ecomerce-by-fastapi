@@ -8,7 +8,7 @@ class BookAdmin(ModelView, model=BookModel):
     icon = "fa-solid fa-book"
 
     column_list = [BookModel.id, BookModel.name, BookModel.description, BookModel.price, BookModel.stock,
-                   BookModel.list_book_author, BookModel.category, BookModel.store, BookModel.created_at,
+                   BookModel.author, BookModel.category, BookModel.store, BookModel.created_at,
                    BookModel.updated_at]
     column_searchable_list = [BookModel.name]
     def is_accessible(self, request) -> bool:

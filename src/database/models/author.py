@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -8,9 +10,14 @@ class AuthorModel(Base):
     name: Mapped[str] = mapped_column(
         String
     )
-
-    book: Mapped["BookModel"] = relationship(
-        "BookModel", lazy="subquery", back_populates="list_book_author"
+    image: Mapped[str] = mapped_column(
+        String, nullable=True
+    )
+    description: Mapped[str] = mapped_column(
+        String, nullable=True
+    )
+    books: Mapped[List["BookModel"]] = relationship(
+        back_populates="author"
     )
     def __str__(self):
         return f'{self.name}'

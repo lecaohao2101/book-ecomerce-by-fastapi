@@ -32,8 +32,20 @@ stripe_keys = {
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-async def index(request: Request, response_model=HTMLResponse):
-    return TEMPLATES.TemplateResponse("pages/index.html", {"request": request})
+async def index(request: Request, session: SessionLocal = Depends(get_db)):
+    list_category = session.query(CategoryModel).all()
+    list_author = session.query(AuthorModel).all()
+    list_stores = session.query(StoreModel).all()
+    context = {
+        "request": request,
+        "categories": list_category,
+        "authors": list_author,
+        "stores": list_stores,
+    }
+    if request.session.get("user_id"):
+        user = session.query(UserModel).get(request.session.get("user_id"))
+        context.update({"user": user})
+    return TEMPLATES.TemplateResponse("pages/index.html", context)
 
 
 @router.get("/products/", status_code=status.HTTP_200_OK)
@@ -102,26 +114,6 @@ async def products_index(request: Request, response_model=HTMLResponse):
     })
 
 
-@router.get("/products/{product_slug}", status_code=status.HTTP_200_OK)
-async def product_info(product_slug: str, request: Request, response_model=HTMLResponse):
-    base_url = request.base_url
-    product_url = app.product_router.url_path_for("get_product_by_slug", slug=product_slug)
-    request_url = base_url.__str__() + product_url.__str__()[1:]
-
-    http3client = http3.AsyncClient()
-    response = await http3client.get(request_url)
-
-    if (response.status_code == 404):
-        redirect = RedirectResponse(url=router.url_path_for('products_index'))
-        return redirect
-
-    product = response.json()
-
-    return TEMPLATES.TemplateResponse("ecommerce/template.html", {
-        "request": request,
-        "product": product,
-        "config": settings
-    })
 
 
 @router.get("/config")
@@ -258,7 +250,6 @@ def page_sign_up(request: Request):
         "request": request,
         "config": settings
     })
-
 
 
 @router.get('/page-404')
@@ -413,16 +404,51 @@ def elements_progress_bars(request: Request):
     })
 
 
-
-
 @router.get('/stores')
 def get_all_stores(request: Request, session: Session = Depends(get_db)):
     stores = session.query(StoreModel).all()
-    return TEMPLATES.TemplateResponse("ecommerce/customer.html", {
+    books = session.query(BookModel).all()
+    list_category = session.query(CategoryModel).all()
+    list_author = session.query(AuthorModel).all()
+    return TEMPLATES.TemplateResponse("ecommerce/stores.html", {
         "request": request,
         "stores": stores,
+        "books": books,
+        "categories": list_category,
+        "authors": list_author,
     })
 
+
+@router.get('/authors')
+def get_all_authors(request: Request, session: Session = Depends(get_db)):
+    stores = session.query(StoreModel).all()
+    books = session.query(BookModel).all()
+    list_category = session.query(CategoryModel).all()
+    list_author = session.query(AuthorModel).all()
+    return TEMPLATES.TemplateResponse("ecommerce/authors.html", {
+        "request": request,
+        "stores": stores,
+        "books": books,
+        "categories": list_category,
+        "authors": list_author,
+    })
+
+
+@router.get('/authors/{id}')
+def get_author(id: int, request: Request, session: SessionLocal = Depends(get_db)):
+    author = session.query(AuthorModel).get(id)
+    books = author.books
+    stores = session.query(StoreModel).all()
+    list_category = session.query(CategoryModel).all()
+    list_author = session.query(AuthorModel).all()
+    return TEMPLATES.TemplateResponse("ecommerce/author-detail.html", {
+        "request": request,
+        "categories": list_category,
+        "authors": list_author,
+        "books": books,
+        "author": author,
+        "stores": stores,
+    })
 
 
 @router.get('/stores/{id}')
@@ -453,20 +479,22 @@ def get_store(id: int, request: Request, session: SessionLocal = Depends(get_db)
         "best_book": best_book
     })
 
+
 @router.get('/books/{id}')
 def get_book(id: int, request: Request, session: SessionLocal = Depends(get_db)):
-    books = session.query(BookModel).filter(BookModel.store_id == id).all()
-    return TEMPLATES.TemplateResponse("ecommerce/index.html", {
+    book = session.query(BookModel).get(id)
+    return TEMPLATES.TemplateResponse("ecommerce/template.html", {
         "request": request,
-        "books": books,
-    })
-@router.get('/helpscreen')
-def get_help(request: Request, session=Depends(get_db)):
-    return TEMPLATES.TemplateResponse("pages/elements-progress-bars.html", {
-        "request": request,
+        "book": book,
         "config": settings
     })
 
+
+@router.get('/add-to-cart')
+def get_help(request: Request, session=Depends(get_db)):
+    return TEMPLATES.TemplateResponse("ecommerce/cart.html", {
+        "request": request
+    })
 
 
 # @router.get('/profile')
@@ -479,10 +507,9 @@ def get_help(request: Request, session=Depends(get_db)):
 
 @router.get("/users/{user_id}")
 async def read_user(request: Request, user_id: int, db: Session = Depends(get_db)):
-   user = db.query(UserModel).filter(UserModel.id == user_id).first()
-   orders = db.query(OrderItemModel).filter(OrderItemModel.order_id == user_id).all()
-   return TEMPLATES.TemplateResponse("pages/user_profile.html", {"request": request, "user": user, "orders":orders})
-
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    orders = db.query(OrderItemModel).filter(OrderItemModel.order_id == user_id).all()
+    return TEMPLATES.TemplateResponse("pages/user_profile.html", {"request": request, "user": user, "orders": orders})
 
 
 # @router.get('/storeowner')

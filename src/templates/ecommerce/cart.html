@@ -1,22 +1,19 @@
+
 {% extends 'layouts/base.html' %}
 
-{% block title %} Contact US {% endblock title %}
+{% block title %} Author {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block body_class %} contact-us {% endblock body_class %}
+{% block body_class %} blog-author bg-gray-100 {% endblock body_class %}
 
 {% block content %}
 
   {% include "includes/navigation.html" %}
 
-  <header>
-    <div class="page-header section-height-85">
-      <div>
-        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="/static/assets/img/curved-images/curved8.jpg">
-      </div>
-      <div class="container">
+  <section class="py-sm-7 py-5 position-relative">
+    <div class="container">
             <div class="col-sm-12 col-md-10 col-md-offset-1">
 <table class="table table-hover">
 <thead>
@@ -132,12 +129,14 @@ Checkout <span class="fa fa-play"></span>
 </div>
 
       </div>
-    </div>
-  </header>
+
+  </section>
+
+
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}
 
   <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
