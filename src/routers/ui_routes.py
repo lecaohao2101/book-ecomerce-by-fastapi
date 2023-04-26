@@ -2,14 +2,13 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-from fastapi_cprofile.profiler import CProfileMiddleware
+
 from fastapi import APIRouter, Request, status, HTTPException, Depends, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from sqlalchemy.orm import Session
-from starlette.datastructures import FormData
-from starlette.responses import JSONResponse
+
 
 import app
 from src import schemas

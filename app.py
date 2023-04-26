@@ -7,14 +7,10 @@ from sqladmin import Admin
 from sqlalchemy.orm import Session
 from starlette.middleware.sessions import SessionMiddleware
 
-# from fastapi.security import OAuth2PasswordBearer
-# from typing import Annotated
-
 from src.config import settings
 from src.database.models import UserModel
 from src.database.models.address import AddressModel
 from src.database.session import *
-from src.helpers.login_check import SessionLoginMiddleware
 from src.routers.admin.address import AdressAdmin
 from src.routers.admin.authentication import AdminAuth
 from src.routers.admin.author import AuthorAdmin

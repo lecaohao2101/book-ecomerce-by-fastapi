@@ -5,7 +5,7 @@ from src.database.session import SessionLocal
 
 PERMISSION = {
     "ADMIN": [
-        {"user-model": ["list", "details", "view", "delete", "create"]},
+        {"user-model": ["list", "details", "view", "delete", "create", "edit"]},
         {"store-model": ["list","details","edit","delete","create"]},
         {"category-request": ["list","details","edit"]},
         {"address-model": ["list","details","edit","delete","create"]},
