@@ -33,12 +33,12 @@ class UserAdmin(ModelView, model=UserModel):
 
     column_labels = {UserModel.email: "Email", UserModel.full_name:"Full Name", UserModel.role:"Role"}
 
-    column_details_exclude_list = [UserModel.password]
+    column_details_exclude_list = [UserModel.password, UserModel.list_order, UserModel.list_store, UserModel.list_address, UserModel.role_id]
     # column_exclude_list = [UserModel.password]
-    can_create = False
-    can_delete = False
-    can_edit = True
-    can_export = False
+    # can_create = False
+    # can_delete = False
+    # can_edit = True
+    # can_export = False
 
     def is_accessible(self, request) -> bool:
         return check_role_access(request)

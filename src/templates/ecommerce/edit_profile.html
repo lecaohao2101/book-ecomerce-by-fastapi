@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Edit Profile {% endblock title %}
+
+{% block stylesheets %}
+  <link href="/static/assets/css/select2.min.css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+
+  <section class="py-sm-7 py-5 position-relative">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="row py-lg-7 py-5">
+              <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h4 class="mb-0">
+                    Edit Profile
+                  </h4>
+                </div>
+                <form method="post" action="{{ url_for('update_profile', user_id=user.id) }}">
+                  <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                  </div>
+{#                  <div class="form-group">#}
+{#                    <label for="password_old">Password Old</label>#}
+{#                    <input type="password" class="form-control" id="password_old" name="password_old" value="{{ user.password }}" required>#}
+{#                  </div>#}
+                  <div class="form-group">
+                    <label for="password_new">Password Old</label>
+                    <input type="password" class="form-control" id="password_new" name="password_new" value="{{ user.password }}" required>
+                  </div>
+{#                  <div class="form-group">#}
+{#                    <label for="password">Password</label>#}
+{#                    <input type="password" class="form-control" id="password" name="password" minlength="6">#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="password">Password</label>#}
+{#                    <input type="password" class="form-control" id="password" name="password" minlength="6">#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="address">Address</label>#}
+{#                    <textarea class="form-control" id="address" name="address">{{ user.address }}</textarea>#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="city">City</label>#}
+{#                    <input type="text" class="form-control" id="city" name="city" value="{{ user.city }}">#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="state">Distric</label>#}
+{#                    <input type="text" class="form-control" id="state" name="state" value="{{ user.state }}">#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="zip_code">Zip Code</label>#}
+{#                    <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ user.zip_code }}">#}
+{#                  </div>#}
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+
+

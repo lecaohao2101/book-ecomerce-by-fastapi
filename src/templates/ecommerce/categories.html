@@ -1,11 +1,11 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Store {% endblock title %}
+{% block title %} Category {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block body_class %} blog-author bg-gray-100 {% endblock body_class %}
+{% block body_class %} blog-category bg-gray-100 {% endblock body_class %}
 
 {% block content %}
 
@@ -15,17 +15,17 @@
     <div class="container">
       <div class="row">
         <div class="col-12 mx-auto">
-            {% for store in stores %}
+            {% for category in categories %}
             <div class="row py-lg-7 py-5">
-            <div class="col-lg-3 col-md-5 position-relative my-auto">
-              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2"
-                   src="{{ store.image }}">
-            </div>
+{#            <div class="col-lg-3 col-md-5 position-relative my-auto">#}
+{#              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2"#}
+{#                   src="{{ store.image }}">#}
+{#            </div>#}
             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <h4 class="mb-0">
-                  <a href="{{ url_for('get_store', id=store.id) }}">
-                    {{ store.name }}
+                  <a href="{{ url_for('get_category', id=category.id) }}">
+                    {{ category.name }}
                   </a>
                 </h4>
               </div>
@@ -55,21 +55,21 @@
           <div class="col-lg-3 col-sm-6">
             <div class="card card-plain card-blog">
               <div class="card-image border-radius-lg position-relative">
-                <a href="{{ url_for("get_book", id=book.id) }}">
+                <a href="{{ url_for('get_book', id=book.id) }}{{ book.name }}">
                   <img class="w-100 border-radius-lg move-on-hover shadow"
                        src="{{ book.image }}">
                 </a>
               </div>
               <div class="card-body px-0">
                 <h5>
-                  <a href="{{ url_for("get_book", id=book.id) }}" class="text-dark font-weight-bold">
-                    {{ book.name }}
+                  <a href="{{ url_for('get_book', id=book.id) }}{{ book.name }}" class="text-dark font-weight-bold">
+                    {{ book.name }} - ${{ book.price }}
                   </a>
                 </h5>
                 <p>
                   {{ book.description }}
                 </p>
-                <a href="{{ url_for("get_book", id=book.id) }}" class="text-info icon-move-right">
+                <a href="{{ url_for('get_book', id=book.id) }}{{ book.name }}" class="text-info icon-move-right">
                   Read more
                   <i class="fas fa-arrow-right text-sm"></i>
                 </a>
@@ -96,7 +96,6 @@
                     Read More
                     <i class="fas fa-arrow-right text-sm"></i>
                   </a>
-
                 </a>
               </div>
             </div>

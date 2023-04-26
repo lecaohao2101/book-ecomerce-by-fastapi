@@ -9,7 +9,7 @@ class CategoryModel(Base):
         String
     )
     list_book: Mapped[list["BookModel"]] = relationship(
-        back_populates="category", lazy="subquery")
+        back_populates="category")
 
     def __str__(self):
         return f'{self.name}'

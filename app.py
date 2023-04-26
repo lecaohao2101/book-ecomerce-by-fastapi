@@ -7,6 +7,9 @@ from sqladmin import Admin
 from sqlalchemy.orm import Session
 from starlette.middleware.sessions import SessionMiddleware
 
+# from fastapi.security import OAuth2PasswordBearer
+# from typing import Annotated
+
 from src.config import settings
 from src.database.models import UserModel
 from src.database.models.address import AddressModel
@@ -24,16 +27,23 @@ from src.routers.admin.store import StoreAdmin
 from src.routers.admin.user import UserAdmin
 from src.routers.ui_routes import router as ui_router, TEMPLATES
 
+
+
+
+
 app = FastAPI()
 
 
 @app.middleware("http")
 async def check_login(request: Request, call_next):
     session = request.session
+    if request.url.path.startswith("/admin"):
+        response = await call_next(request)
+        return response
     if request.url.path.startswith("/static"):
         response = await call_next(request)
         return response
-    if request.url.path not in ["/", "/login", "/register", "/page-sign-in", "/page-sign-up"]:
+    if request.url.path not in ["/", "/login", "/register","/register_address", "/page-sign-in", "/page-sign-up"]:
         if session.get("user_id"):
             response = await call_next(request)
             return response
@@ -158,3 +168,5 @@ async def logout(
 ):
     request.session.clear()
     return RedirectResponse(url="/page-sign-in", status_code=status.HTTP_302_FOUND)
+
+

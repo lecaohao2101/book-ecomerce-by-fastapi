@@ -5,9 +5,10 @@ from src.database.session import SessionLocal
 
 PERMISSION = {
     "ADMIN": [
-        {"user-model": ["list", "details", "view"]},
+        {"user-model": ["list", "details", "view", "delete", "create"]},
         {"store-model": ["list","details","edit","delete","create"]},
         {"category-request": ["list","details","edit"]},
+        {"address-model": ["list","details","edit","delete","create"]},
         {"/": ["index"]},
     ],
     "STORE_OWNER": [
@@ -15,6 +16,7 @@ PERMISSION = {
         {"category-model": ["list","details","edit","delete","create"]},
         {"order-model": ["list","details","edit","delete","create"]},
         {"order-item-model": ["list","details","edit","delete","create"]},
+{"author-model": ["list","details","edit","delete","create"]},
         {"category-request": ["list","create"]},
         {"/": ["index"]},
     ],
@@ -23,15 +25,18 @@ PERMISSION = {
 
 VIEWS = {
     "ADMIN": [
+        "address-model",
         "user-model",
         "store-model",
         "category-request"
+
     ],
     "STORE_OWNER": [
         "book-model",
         "category-model",
         "order-model",
         "order-item-model",
+"author-model",
         "category-request"
     ],
     "CUSTOMER": [],

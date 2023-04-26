@@ -57,13 +57,22 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                        </h6>
-                                        {% for c in categories %}
-                                            <a href="{{ url_for('products_index') }}"
-                                               class="dropdown-item border-radius-md">
-                                                {{ c.name }}
+                                            <a href="{{ url_for('get_all_categories') }}">
+                                                Categories
                                             </a>
+                                            {% for a in categories %}
+{#                                            <a href="{{ url_for('products_index') }}"#}
+{#                                               class="dropdown-item border-radius-md">#}
+{#                                                {{ a.name }}#}
+{#                                            </a>#}
                                         {% endfor %}
+                                        </h6>
+{#                                        {% for c in categories %}#}
+{#                                            <a href="{{ url_for('products_index') }}"#}
+{#                                               class="dropdown-item border-radius-md">#}
+{#                                                {{ c.name }}#}
+{#                                            </a>#}
+{#                                        {% endfor %}#}
 
 
                                     </div>
@@ -106,17 +115,17 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <a href="{{ url_for('get_all_authors') }}"
-                                               class="dropdown-item border-radius-md">
+                                            <a href="{{ url_for('get_all_authors') }}">
                                                 Authors
                                             </a>
-                                        </h6>
-                                        {% for a in authors %}
-                                            <a href="{{ url_for('products_index') }}"
-                                               class="dropdown-item border-radius-md">
-                                                {{ a.name }}
-                                            </a>
+                                            {% for a in authors %}
+{#                                            <a href="{{ url_for('products_index') }}"#}
+{#                                               class="dropdown-item border-radius-md">#}
+{#                                                {{ a.name }}#}
+{#                                            </a>#}
                                         {% endfor %}
+                                        </h6>
+
                                     </div>
                                 </div>
                             </li>
@@ -157,17 +166,17 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <a href="{{ url_for('get_all_stores') }}"
-                                               class="dropdown-item border-radius-md">
+                                            <a href="{{ url_for('get_all_stores') }}">
                                                 Stores
                                             </a>
-                                        </h6>
-                                        {% for s in stores %}
-                                            <a href="{{ url_for('get_store', id=s.id) }}"
-                                               class="dropdown-item border-radius-md">
-                                                <b>{{ s.name }}</b>
-                                            </a>
+                                            {% for s in stores %}
+{#                                            <a href="{{ url_for('get_store', id=s.id) }}"#}
+{#                                               class="dropdown-item border-radius-md">#}
+{#                                                <b>{{ s.name }}</b>#}
+{#                                            </a>#}
                                         {% endfor %}
+                                        </h6>
+
                                     </div>
                                 </div>
                             </li>
@@ -176,7 +185,7 @@
 
                             <li class=" mx-2 ms-lg-6">
                                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                   aria-expanded="false">
+                                   aria-expanded="false" href="{{ url_for('get_all_profiles') }}">
                                     <i class="fas fa-user-circle me-2"></i> Profile
                                 </a>
                             </li>
