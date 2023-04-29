@@ -1,47 +1,83 @@
 {% extends 'layouts/base.html' %}
 
+
 {% block title %} Profile {% endblock title %}
+
 
 {% block stylesheets %}{% endblock stylesheets %}
 
+
 {% block body_class %} blog-category bg-gray-100 {% endblock body_class %}
+
 
 {% block content %}
 
-  {% include "includes/navigation.html" %}
 
-  <section class="py-sm-7 py-5 position-relative">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 mx-auto">
-            <div class="row py-lg-7 py-5">
-              <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h4 class="mb-0">
-                    Profile
-                  </h4>
-                  <a href="{{ url_for('edit_profile', user_id=user.id) }}" class="btn btn-primary">Edit</a>
-                </div>
-                <p>Full Name: {{ user.full_name }}</p>
-                <p>Email: {{ user.email }}</p>
-                {% if address %}
-                  <h3>Address:</h3>
-                  {% for address1 in address %}
-                    <p>{{ address1.number_home}}, {{ address1.street }}, {{ address1.ward }}, {{ address1.district }}, {{ address1.city }}, {{ address1.country }}</p>
-                  {% endfor %}
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+   {% include "includes/navigation.html" %}
 
-    </div>
-  </section>
+
+   <section class="py-sm-7 py-5 position-relative">
+       <div class="container">
+           <div class="row">
+               <div class="col-12 mx-auto">
+                   <div class="row py-lg-7 py-5">
+                       <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
+                           <div class="d-flex justify-content-between align-items-center mb-2">
+                               <h3 class="mb-0">
+                                   Profile
+                               </h3>
+                               <a href="{{ url_for('edit_profile', user_id=user.id) }}"
+                                  class="btn btn-primary">Edit</a>
+                           </div>
+                           <p>Full Name: {{ user.full_name }}</p>
+                           <p>Email: {{ user.email }}</p>
+                           {% if address %}
+                               <h3>Address:</h3>
+                               {% for address1 in address %}
+                                   <p>{{ address1.number_home }}, {{ address1.street }}, {{ address1.ward }}, {{ address1.district }}, {{ address1.city }}, {{ address1.country }}</p>
+
+
+
+
+
+
+                               {% endfor %}
+                               <h3>Past orders:</h3>
+                               {% for order in orders %}
+
+
+                                   <div class="order">
+                                       <p>Order ID: {{ order.id }}</p>
+                                       <p>Total Bill: {{ order.total }}</p>
+                                       <p>Date Created: {{ order.created_date }}</p>
+                                       <ul>
+                                           {% for item in order.list_order_item %}
+                                               <li>{{ item.book.name }} (Quantity: {{ item.quantity }})</li>
+                                           {% endfor %}
+
+
+                                       </ul>
+                                   </div>
+
+
+                               {% endfor %}
+                           {% endif %}
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+
+       </div>
+   </section>
 {% endblock content %}
+
 
 {% block javascripts %}
 
-  <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
+   <script src="/static/assets/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+
 
 {% endblock javascripts %}

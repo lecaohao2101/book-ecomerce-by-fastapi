@@ -14,9 +14,7 @@ class CategoryRequest(Base):
     status: Mapped[str] = mapped_column(
         Boolean, server_default="0"
     )
-    store_owner_id: Mapped[str] = mapped_column(
-        String
-    )
+
 
     def __str__(self):
         return f'{self.name}{self.status}'

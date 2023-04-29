@@ -6,9 +6,8 @@ from src.database.session import SessionLocal
 PERMISSION = {
     "ADMIN": [
         {"user-model": ["list", "details", "view", "delete", "create", "edit"]},
-        {"store-model": ["list","details","edit","delete","create"]},
+        {"store-model": ["list","details"]},
         {"category-request": ["list","details","edit"]},
-        {"address-model": ["list","details","edit","delete","create"]},
         {"/": ["index"]},
     ],
     "STORE_OWNER": [
@@ -25,10 +24,10 @@ PERMISSION = {
 
 VIEWS = {
     "ADMIN": [
-        "address-model",
         "user-model",
         "store-model",
-        "category-request"
+        "category-request",
+
 
     ],
     "STORE_OWNER": [

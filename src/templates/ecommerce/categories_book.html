@@ -23,23 +23,23 @@
                     </div>
                 </div>
             </div>
-{#            <div class="position-absolute w-100 z-index-1 bottom-0">#}
-{#                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
-{#                     viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">#}
-{#                    <defs>#}
-{#                        <path id="gentle-wave"#}
-{#                              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>#}
-{#                    </defs>#}
-{#                    <g class="moving-waves">#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40"/>#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"/>#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)"/>#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"/>#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"/>#}
-{#                        <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,1"/>#}
-{#                    </g>#}
-{#                </svg>#}
-{#            </div>#}
+            <div class="position-absolute w-100 z-index-1 bottom-0">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave"
+                              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
+                    </defs>
+                    <g class="moving-waves">
+                        <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40"/>
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"/>
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)"/>
+                        <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"/>
+                        <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"/>
+                        <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,1"/>
+                    </g>
+                </svg>
+            </div>
         </div>
     </header>
     <!-- -------- END HEADER 7 w/ text and video ------- -->
@@ -194,18 +194,18 @@
                             <div class="colored-shadow"
                                  style="background-image: url('https://m.media-amazon.com/images/I/510CXXt9CqL.jpg');"></div>
                         </div>
-{#                        <div class="card-body">#}
-{#                            <a href="javascript:;">#}
-{#                                <h5 class="mt-3">#}
-{#                                    {{ best_book.name }}#}
-{#                                </h5>#}
-{#                            </a>#}
-{#                            <p>#}
-{#                                {{ best_book.description }}#}
-{#                            </p>#}
-{##}
-{##}
-{#                        </div>#}
+                        <div class="card-body">
+                            {#                            <a href="javascript:;">#}
+                            {#                                <h5 class="mt-3">#}
+                            {#                                    {{ best_book.name }}#}
+                            {#                                </h5>#}
+                            {#                            </a>#}
+                            {#                            <p>#}
+                            {#                                {{ best_book.description }}#}
+                            {#                            </p>#}
+
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -252,12 +252,14 @@
                                                      src="/static/assets/img/kal-visuals-square.jpg">
                                             </div>
                                         </a>
+
                                     </div>
                                     <div class="col-lg-8 col-md-6 col-12 ps-lg-0 my-auto">
                                         <div class="card-body">
                                             <h5 class="mb-0">{{ book.name }}</h5>
                                             <h6 class="text-info">{{ book.price }}</h6>
                                             <p class="mb-0">{{ book.author }}</p>
+                                            <i class="fas fa-user-circle me-2"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -285,17 +287,18 @@
                                             <h5 class="mb-0">{{ book.name }}</h5>
                                             <h6 class="text-info">{{ book.price }}</h6>
                                             <p class="mb-0">{{ book.author }}</p>
-
+                                            {#                                            <p class="mb-0">{{ book.author }}</p>#}
                                         </div>
+                                        <i class="fas fa-user-circle me-2"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-<br>
+                        <br>
                     {% endfor %}
                 </div>
-                {% else %}
-                    <div class="row">
+            {% else %}
+                <div class="row">
                     {% for book in  books %}
                         <div class="col-lg-6 col-12">
                             <div class="card card-profile overflow-hidden">
@@ -303,16 +306,31 @@
                                     <div class="col-lg-4 col-md-6 col-12 pe-lg-0">
                                         <a href="{{ url_for("get_book", id=book.id) }}">
                                             <div class="p-3 pe-0">
-                                                <img  class="w-100 border-radius-md"
+                                                <img class="w-100 border-radius-md"
                                                      src="{{ book.image }}">
                                             </div>
                                         </a>
                                     </div>
                                     <div class="col-lg-8 col-md-6 col-12 ps-lg-0 my-auto">
+
+
                                         <div class="card-body">
-                                            <a href="{{ url_for("get_book", id=book.id) }}"><h5 class="mb-0">{{ book.name }}</h5></a>
-                                            <a href="{{ url_for("get_book", id=book.id) }}"><h6 class="text-info">{{ book.price }}</h6></a>
-{#                                            <a href="{{ url_for('get_author', id=author.id)}}"><p class="mb-0">{{ book.author }}</p></a>#}
+                                            <a href="{{ url_for("get_book", id=book.id) }}"><h5
+                                                    class="mb-0">{{ book.name }}</h5></a>
+                                            <a href="{{ url_for("get_book", id=book.id) }}"><h6
+                                                    class="text-info">{{ book.price }}</h6></a>
+                                            <a><p class="mb-0">{{ book.author }}</p></a>
+{#                                            <a href="{{ url_for('get_add_to_cart', book_id=book.id) }}">#}
+{#                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"#}
+{#                                                     fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">#}
+{#                                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>#}
+{#                                                </svg>#}
+                                            </a>
+                                            <form action="{{ url_for('add_to_cart') }}" method="post">
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <input type="number" name="quantity" value="1">
+    <button type="submit">Add to cart</button>
+</form>
 
                                         </div>
                                     </div>

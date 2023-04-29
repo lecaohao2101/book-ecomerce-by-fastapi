@@ -422,7 +422,6 @@ def get_all_categories(request: Request, session: Session = Depends(get_db)):
         "authors": list_author,
     })
 
-
 @router.get('/stores')
 def get_all_stores(request: Request, session: Session = Depends(get_db)):
     stores = session.query(StoreModel).all()
@@ -472,7 +471,7 @@ def get_author(id: int, request: Request, session: SessionLocal = Depends(get_db
 @router.get('/categories/{id}')
 def get_category(id: int, request: Request, session: SessionLocal = Depends(get_db)):
     category = session.query(CategoryModel).get(id)
-    store = session.query(StoreModel).filter(StoreModel.id == id).first()
+    store = session.query(StoreModel).filter(StoreModel.id == id).all()
     list_category = session.query(CategoryModel).all()
     list_author = session.query(AuthorModel).all()
     list_stores = session.query(StoreModel).all()
@@ -484,6 +483,7 @@ def get_category(id: int, request: Request, session: SessionLocal = Depends(get_
         "authors": list_author,
         "stores": list_stores,
     })
+
 @router.get('/stores/{id}')
 def get_store(id: int, request: Request, session: SessionLocal = Depends(get_db)):
     books = session.query(BookModel).filter(BookModel.store_id == id).all()
@@ -523,11 +523,128 @@ def get_book(id: int, request: Request, session: SessionLocal = Depends(get_db))
     })
 
 
-@router.get('/add-to-cart')
-def get_help(request: Request, session=Depends(get_db)):
+@router.get('/cart')
+def get_cart(request: Request, session=Depends(get_db)):
+    user_id = request.session.get("user_id")
+    current_order = session.query(OrderModel).filter(
+        OrderModel.user_id == user_id,
+        OrderModel.status == False
+
+    ).first()
+    if current_order:
+        items = current_order.list_order_item
+    else:
+        items = None
+        current_order = None
     return TEMPLATES.TemplateResponse("ecommerce/cart.html", {
-        "request": request
+        "request": request,
+        "items": items,
+        "current_order": current_order,
     })
+
+# @router.get('/add-to-cart/{book_id}')
+# def get_add_to_cart(request: Request, book_id:int, session=Depends(get_db)):
+#     user_id = request.session.get("user_id")
+#     current_order = session.query(OrderModel).filter(
+#         OrderModel.user_id == user_id,
+#         OrderModel.status == False
+#
+#     ).first()
+#     if not current_order:
+#         current_order = OrderModel(user_id=user_id)
+#         session.add(current_order)
+#         session.commit()
+#
+#     book = session.query(BookModel).filter_by(id=book_id).first()
+#     if not book:
+#         return {"error": "Book not found"}
+#
+#     item = session.query(OrderItemModel).filter(
+#         OrderItemModel.book_id == book_id,
+#         OrderItemModel.order_id == current_order.id
+#     ).first()
+#
+#     if item:
+#         item.quantity += 1
+#     else:
+#         item = OrderItemModel(book_id=book_id, order_id=current_order.id)
+#         session.add(item)
+#
+#     session.commit()
+#
+#     return {"success": True}
+
+
+# @router.post('/add-to-cart')
+# def add_to_cart(request: Request, session=Depends(get_db)):
+#     book_id = request.form['book_id']
+#     user_id = request.session.get("user_id")
+#     current_order = session.query(OrderModel).filter(
+#         OrderModel.user_id == user_id,
+#         OrderModel.status == False
+#     ).first()
+#     if not current_order:
+#         current_order = OrderModel(user_id=user_id)
+#         session.add(current_order)
+#         session.commit()
+#     order_item = session.query(OrderItemModel).filter(
+#         OrderItemModel.order_id == current_order.id,
+#         OrderItemModel.book_id == book_id,
+#     ).first()
+#     if not order_item:
+#         order_item = OrderItemModel(order_id=current_order.id, product_id=product_id, quantity=1)
+#         session.add(order_item)
+#     else:
+#         order_item.quantity += 1
+#     session.commit()
+#     return RedirectResponse(url='/cart')
+
+
+# @router.post('/add-to-cart')
+# def add_to_cart(request: Request, session=Depends(get_db), book_id: int = Form(...),price: int = Form(...), quantity: int = Form(...)):
+#     user_id = request.session.get("user_id")
+#     current_order = session.query(OrderModel).filter(
+#         OrderModel.user_id == user_id,
+#         OrderModel.status == False
+#     ).first()
+#     if not current_order:
+#         current_order = OrderModel(user_id=user_id)
+#         session.add(current_order)
+#         session.commit()
+#
+#     book = session.query(BookModel).get(book_id)
+#     if not book:
+#         return RedirectResponse(url='/error')
+#
+#     order_item = session.query(OrderItemModel).filter_by(
+#         order_id=current_order.id,
+#         book_id=book.id
+#     ).first()
+#
+#     if not order_item:
+#         order_item = OrderItemModel(
+#             order_id=current_order.id,
+#             book_id=book.id,
+#             quantity=quantity,
+#             price=price,
+#         )
+#         session.add(order_item)
+#     else:
+#         order_item.quantity += quantity
+#
+#     current_order.total += book.price * quantity
+#
+#     session.commit()
+#
+#     return RedirectResponse(url='/cart')
+
+
+
+
+
+
+
+
 
 
 
@@ -565,13 +682,17 @@ def get_store(id: int, request: Request, session: SessionLocal = Depends(get_db)
 async def get_all_profiles(request: Request, session: Session = Depends(get_db)):
     address = session.query(AddressModel).filter().all()
     user_id = request.session.get('user_id')
+
+
     if user_id:
         user = session.query(UserModel).get(user_id)
+        orders = user.list_order
         if user:
             # addresses = user.list_address
-            # order = user.list_order
-            return TEMPLATES.TemplateResponse('ecommerce/profile.html', {'request': request, 'user': user, 'address': address})
+            # orders = user.list_order
+            return TEMPLATES.TemplateResponse('ecommerce/profile.html', {'request': request, 'user': user, 'address': address,"orders": orders})
     return RedirectResponse(url='/')
+
 
 @router.get("/profiles/{user_id}/edit")
 async def edit_profile(request: Request, user_id: int, session: Session = Depends(get_db)):
@@ -591,6 +712,13 @@ async def update_profile(request: Request, user_id: int, session: Session = Depe
         session.commit()
         return TEMPLATES.TemplateResponse('ecommerce/profile.html', {'request': request, 'user': user})
     return
+
+@router.get('/helpscreen')
+def get_help(request: Request, session=Depends(get_db)):
+    return TEMPLATES.TemplateResponse("pages/elements-progress-bars.html", {
+        "request": request,
+        "config": settings
+    })
 
 
 
